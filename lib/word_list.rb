@@ -1,8 +1,18 @@
+module Rules
+  module ConvertToArray
+    def words=(words)
+      [words].flatten.compact
+    end
+  end
+end
+
 class WordList
   attr_reader :words
   
+  include Rules::ConvertToArray
+  
   def words=(words)
-    words = [words].flatten.compact
+    words = super(words)
     @words = words.map{ |str| 
       str = str.gsub(/[^\w\s\!\"]/, '')
       str = str.gsub(/\s+/, ' ').strip
