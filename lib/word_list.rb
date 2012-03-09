@@ -10,6 +10,12 @@ module Rules
       super(words).map{ |str| str.gsub(/[^\w\s\!\"]/, '') }
     end
   end
+  
+  module StripUnnecessaryWhitespace
+    def words=(words)
+      super(words).map{ |str| str.gsub(/\s+/, ' ').strip }
+    end
+  end
 end
 
 class WordList
@@ -17,11 +23,11 @@ class WordList
   
   include Rules::ConvertToArray
   include Rules::StripUnallowedCharacters
+  include Rules::StripUnnecessaryWhitespace
   
   def words=(words)
     words = super(words)
     @words = words.map{ |str| 
-      str = str.gsub(/\s+/, ' ').strip
       str = str.split(/\s/).map { |nstr|
         nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
       }.join(" ")
