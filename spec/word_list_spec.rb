@@ -31,5 +31,12 @@ describe WordList do
       subject.words = ["apples", "berries", "apricots and oranges please"]
       subject.words.should eq(["selppa", "berries", "stocirpa dna segnaro please"])
     end
+    
+    it "strips non alpha-numeric characters except: _ \" !" do
+      "` ~ @ # $ % ^ & * ( ) - + = [ ] \ { } | ; ' : , . / < > ?".split(" ").each do |ch|
+        subject.words = ["this #{ch}", "certainly", "#{ch} does"]
+        subject.words.should eq(["this", "certainly", "does"])
+      end
+    end
   end
 end

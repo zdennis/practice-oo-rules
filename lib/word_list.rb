@@ -4,8 +4,9 @@ class WordList
   def words=(words)
     words = [words].flatten.compact
     @words = words.map{ |str| 
+      str = str.gsub(/[^\w\s\!\"]/, '')
       str = str.gsub(/\s+/, ' ').strip
-      str.split(/\s/).map { |nstr|
+      str = str.split(/\s/).map { |nstr|
         nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
       }.join(" ")
     }
