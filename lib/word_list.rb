@@ -1,3 +1,7 @@
 class WordList
-  attr_accessor :words
+  attr_reader :words
+  
+  def words=(words)
+    @words = words.map{ |str| str.gsub(/\s+/, '') }
+  end
 end
