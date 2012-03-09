@@ -4,6 +4,7 @@ class WordListSanitizer
     convert_to_array
     strip_unallowed_characters
     remove_unnecessary_whitespace
+    reverse_words_that_start_with_a_vowel
   end
   
   protected
@@ -19,6 +20,14 @@ class WordListSanitizer
   def remove_unnecessary_whitespace
     @words = @words.map{ |str| str.gsub(/\s+/, ' ').strip }
   end
+  
+  def reverse_words_that_start_with_a_vowel
+    @words = @words.map{ |str|
+      str = str.split(/\s/).map { |nstr|
+        nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
+      }.join(" ")
+    }
+  end
 end
 
 
@@ -30,11 +39,6 @@ class WordList
   end
   
   def words=(words)
-    words = @sanitizer.sanitize(words)
-    @words = words.map{ |str| 
-      str = str.split(/\s/).map { |nstr|
-        nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
-      }.join(" ")
-    }
+    @words = @sanitizer.sanitize(words)
   end
 end
