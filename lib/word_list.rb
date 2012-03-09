@@ -16,6 +16,16 @@ module Rules
       super(words).map{ |str| str.gsub(/\s+/, ' ').strip }
     end
   end
+  
+  module ReserveWordsStartingWithVowel
+    def words=(words)
+      super(words).map do |str| 
+        str.split(/\s/).map{ |nstr| 
+          nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
+        }.join(" ")
+      end
+    end
+  end
 end
 
 class WordList
@@ -24,13 +34,10 @@ class WordList
   include Rules::ConvertToArray
   include Rules::StripUnallowedCharacters
   include Rules::StripUnnecessaryWhitespace
+  include Rules::ReserveWordsStartingWithVowel
   
   def words=(words)
     words = super(words)
-    @words = words.map{ |str| 
-      str = str.split(/\s/).map { |nstr|
-        nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
-      }.join(" ")
-    }
+    @words = words
   end
 end
