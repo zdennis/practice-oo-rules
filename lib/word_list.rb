@@ -37,7 +37,6 @@ class WordList
   include Rules::ReserveWordsStartingWithVowel
   
   def words=(words)
-    words = super(words)
-    @words = words
+    @words = super(words)
   end
 end
