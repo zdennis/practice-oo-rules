@@ -1,25 +1,23 @@
-
-
-module ConvertToArraySanitizer
-  def self.sanitize(words)
+class ConvertToArraySanitizer
+  def sanitize(words)
     [words].flatten.compact
   end
 end
 
-module StripUnallowedCharactersSanitizer
-  def self.sanitize(words)
+class StripUnallowedCharactersSanitizer
+  def sanitize(words)
     words.map{ |str| str.gsub(/[^\w\s\!\"]/, '') }
   end
 end
 
-module RemoveUnnecessaryWhitespaceSanitizer
-  def self.sanitize(words)
+class RemoveUnnecessaryWhitespaceSanitizer
+  def sanitize(words)
     words.map{ |str| str.gsub(/\s+/, ' ').strip }
   end
 end
 
-module ReverseWordsThatStartWithVowel
-  def self.sanitize(words)
+class ReverseWordsThatStartWithVowel
+  def sanitize(words)
     words.map{ |str|
       str = str.split(/\s/).map { |nstr|
         nstr =~ /^[aeiou]/ ? nstr.reverse : nstr
@@ -32,10 +30,10 @@ class WordList
   attr_reader :words
   
   SANITIZERS = [
-    ConvertToArraySanitizer,
-    StripUnallowedCharactersSanitizer,
-    RemoveUnnecessaryWhitespaceSanitizer,
-    ReverseWordsThatStartWithVowel]
+    ConvertToArraySanitizer.new,
+    StripUnallowedCharactersSanitizer.new,
+    RemoveUnnecessaryWhitespaceSanitizer.new,
+    ReverseWordsThatStartWithVowel.new]
   
   def words=(words)
     @words = SANITIZERS.inject(words) do |words, sanitizer|
