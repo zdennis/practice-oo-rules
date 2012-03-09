@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe WordList do
   describe "#words=" do
+    it "handles a string as a single-word array" do
+      subject.words = "hello there"
+      subject.words.should eq(["hello there"])
+    end
+    
     it "reduces consecutive spaces to a single space" do
       subject.words = ["hello        world!"]
       subject.words.should eq(["hello world!"])
