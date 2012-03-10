@@ -10,8 +10,7 @@ Each branch in this repository represents a different technique to implementing 
 
 Learning shouldn't always take a giant example or application that require you to spend hours, days, or a week to work through. So here, there are few rules and those that exist are very simple. 
 
-Simple rules can be representative of more complex ones. By keeping the rules here very simple it allows the approach to implementation really shine. That means it's up to you to extrapolate how these different approaches may apply in situations you encounter in every day programs. But the benefit of this is that you can spend a handful of minutes looking at the different approaches in this repository, perhaps even contribute your own, and leave feeling you have learned something or at least confirmed something.
-
+Simple rules can be representative of more complex ones. By keeping the rules here very simple it lets the implementation approach to be readily visible. That means it's up to you to extrapolate how these different approaches may apply in situations you encounter in every day programs. But the benefit of this is that you can spend a handful of minutes looking at the different approaches in this repository, perhaps even contribute your own, and leave feeling you have learned something or at least confirmed something.
 
 ## Contributing
 
