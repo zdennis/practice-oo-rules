@@ -26,17 +26,44 @@ class ReverseWordsThatStartWithVowel
   end
 end
 
+module DI
+  def self.mappings
+    @mappings ||= {}
+  end
+  
+  
+  module ConstructorMethods
+    def constructor(*args)
+      @constructor_args = args
+      define_method :initialize do
+        args.each do |key|
+          instance_variable_set "@#{key}", DI.mappings[self.class.name.to_sym][key]
+        end
+      end
+    end
+  end
+
+  def self.construct(key, opts={})
+    DI.mappings[key] = opts[:with]
+  end
+  
+  construct :WordList, :with => {
+    :sanitizers => [
+      ConvertToArraySanitizer.new,
+      StripUnallowedCharactersSanitizer.new,
+      RemoveUnnecessaryWhitespaceSanitizer.new,
+      ReverseWordsThatStartWithVowel.new ]}
+end
+
+Class.send :include, DI::ConstructorMethods
+
 class WordList
   attr_reader :words
-  
-  SANITIZERS = [
-    ConvertToArraySanitizer.new,
-    StripUnallowedCharactersSanitizer.new,
-    RemoveUnnecessaryWhitespaceSanitizer.new,
-    ReverseWordsThatStartWithVowel.new]
-  
+    
+  constructor :sanitizers
+    
   def words=(words)
-    @words = SANITIZERS.inject(words) do |words, sanitizer|
+    @words = @sanitizers.inject(words) do |words, sanitizer|
       sanitizer.sanitize words
     end
   end
