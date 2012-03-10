@@ -1,4 +1,6 @@
 class ConvertToArraySanitizer
+  initialize_with :thing
+
   def sanitize(words)
     [words].flatten.compact
   end

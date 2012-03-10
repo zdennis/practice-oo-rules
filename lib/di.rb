@@ -8,7 +8,7 @@ module DI
   end
   
   module ConstructorMethods
-    def constructor(*args)
+    def initialize_with(*args)
       @constructor_args = args
       define_method :initialize do
         args.each do |key|

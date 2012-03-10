@@ -4,7 +4,7 @@ require 'rules'
 class WordList
   attr_reader :words
     
-  constructor :sanitizers
+  initialize_with :sanitizers
     
   def words=(words)
     @words = @sanitizers.inject(words) do |words, sanitizer|

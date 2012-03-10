@@ -1,4 +1,8 @@
 DI.configure do 
+  construct :ConvertToArraySanitizer do 
+    { :thing => "Some injected value" }
+  end
+  
   construct :WordList do {
     :sanitizers => [
       ConvertToArraySanitizer.new,
